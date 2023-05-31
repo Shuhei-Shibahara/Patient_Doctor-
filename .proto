@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+message Doctor {
+  string name = 1;
+  string email = 2;
+}
+
+message Exercise {
+  string name = 1;
+}
+
+message AssignExercisesRequest {
+  string patientName = 1;
+  Doctor doctor = 2;
+  repeated Exercise exercises = 3;
+}
+
+message GetExercisesRequest {
+  string patientName = 1;
+}
+
+message GetExercisesResponse {
+  map<string, repeated Exercise> exerciseList = 1;
+}
+
+service DoctorService {
+  rpc AssignExercises(AssignExercisesRequest) returns (google.protobuf.Empty) {}
+}
+
+service PatientService {
+  rpc GetExercises(GetExercisesRequest) returns (GetExercisesResponse) {}
+}
